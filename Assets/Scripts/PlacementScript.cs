@@ -15,7 +15,11 @@ public class PlacementScript : MonoBehaviour
 
     [SerializeField]
     private ARRaycastManager arOrigin;
+<<<<<<< HEAD
     private Pose placementPose;
+=======
+    public static Pose placementPose;
+>>>>>>> 0f50f418b90c6e5bf34564677571e09f37f12bf6
     private bool placementPoseIsValid = false;
 
     // Start is called before the first frame update
@@ -58,6 +62,7 @@ public class PlacementScript : MonoBehaviour
         {
             placementIndicator.SetActive(true);
             placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+<<<<<<< HEAD
 
 
 
@@ -69,6 +74,8 @@ public class PlacementScript : MonoBehaviour
                 objectArr.Add(Instantiate(CandyArrObj[Random.Range(0, CandyArrObj.Length-1)], randomPos, Quaternion.identity));;
                 objectArr[objectArr.Count - 1].SetActive(true);
             }
+=======
+>>>>>>> 0f50f418b90c6e5bf34564677571e09f37f12bf6
         }
         else
         {
