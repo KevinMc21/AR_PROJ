@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4115785078358993216}
   - component: {fileID: 7352765782426539408}
   - component: {fileID: 782784770186657899}
+  - component: {fileID: 7672199113668924859}
   m_Layer: 0
   m_Name: AR Plane
   m_TagString: Untagged
@@ -223,3 +224,16 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 0
   m_Loop: 0
+--- !u!65 &7672199113668924859
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5209968602185408832}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.15, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

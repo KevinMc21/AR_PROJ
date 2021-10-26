@@ -31,7 +31,7 @@ public class CollectCandy : MonoBehaviour
 
         if (list_candy.Count < 30)
         {
-
+            Debug.Log("Create Instance");
             randomPos = new Vector3(Random.Range(placementPose.position.x + 0.5f, placementPose.position.x - 0.5f), placementPose.position.y, Random.Range(placementPose.position.z + 0.5f, placementPose.position.z - 0.5f));
 
             list_candy.Add(Instantiate(CandyArrObj[Random.Range(0, CandyArrObj.Length - 1)], randomPos, Quaternion.identity)); ;
