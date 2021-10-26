@@ -38,11 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
-=======
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
->>>>>>> 0f50f418b90c6e5bf34564677571e09f37f12bf6
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -321,11 +317,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -360}
-<<<<<<< HEAD
-  m_SizeDelta: {x: 700, y: 600}
-=======
   m_SizeDelta: {x: 700, y: 650}
->>>>>>> 0f50f418b90c6e5bf34564677571e09f37f12bf6
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1192313814
 MonoBehaviour:
@@ -349,11 +341,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 5669fb2f9dad34e4a945c6e1320a8ff3, type: 3}
-<<<<<<< HEAD
-    m_FontSize: 45
-=======
     m_FontSize: 40
->>>>>>> 0f50f418b90c6e5bf34564677571e09f37f12bf6
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -367,17 +355,6 @@ MonoBehaviour:
   m_Text: '1. Collect all the candies needed within 2 minutes.
 
 
-<<<<<<< HEAD
-    2. Candy is
-    lost if you hit the obstacle, so avoid it!
-
-
-    3. Energy bar will decrease
-    if you are caught.
-
-
-    4. STAY AWAY from Mr.Pumpkin!!
-=======
     2. Press destroy
     button to attack the wicked creatures.
 
@@ -387,7 +364,6 @@ MonoBehaviour:
 
 
     4.  DO NOT RAN OUT OF YOUR ENERGY!!
->>>>>>> 0f50f418b90c6e5bf34564677571e09f37f12bf6
 
 
 
@@ -412,10 +388,6 @@ GameObject:
   - component: {fileID: 1396047092}
   - component: {fileID: 1396047091}
   - component: {fileID: 1396047090}
-<<<<<<< HEAD
-  - component: {fileID: 1396047093}
-=======
->>>>>>> 0f50f418b90c6e5bf34564677571e09f37f12bf6
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -487,15 +459,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-<<<<<<< HEAD
-      - m_Target: {fileID: 1396047093}
+      - m_Target: {fileID: 2071136991}
         m_TargetAssemblyTypeName: ChangePage, Assembly-CSharp
         m_MethodName: GoToGame
-=======
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ChangePage, Assembly-CSharp
-        m_MethodName: Gotopage3
->>>>>>> 0f50f418b90c6e5bf34564677571e09f37f12bf6
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -555,28 +521,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1396047088}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
---- !u!114 &1396047093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1396047088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 189582072131442cbb6a3ccdb2f2fa87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _secondScene: 
-  _thirdScene: 
-  _fourthScene: 
-  _fifthScene: 
-  _sixthScene: 
-  _seventhScene: 
-  _gameScene: BlankAR
-=======
->>>>>>> 0f50f418b90c6e5bf34564677571e09f37f12bf6
 --- !u!1 &1400667271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,11 +951,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-<<<<<<< HEAD
-  m_SizeDelta: {x: 1125, y: 2436}
-=======
   m_SizeDelta: {x: 1300, y: 2600}
->>>>>>> 0f50f418b90c6e5bf34564677571e09f37f12bf6
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1972465977
 MonoBehaviour:
@@ -1131,3 +1071,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1973682081}
   m_CullTransparentMesh: 1
+--- !u!1 &2071136990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2071136992}
+  - component: {fileID: 2071136991}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2071136991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071136990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 189582072131442cbb6a3ccdb2f2fa87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _secondScene: 
+  _thirdScene: 
+  _fourthScene: 
+  _fifthScene: 
+  _sixthScene: 
+  _seventhScene: 
+  _gameScene: Game Scene
+--- !u!4 &2071136992
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071136990}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 320, y: 240, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
