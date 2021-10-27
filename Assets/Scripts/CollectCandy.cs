@@ -11,7 +11,6 @@ public class CollectCandy : MonoBehaviour
     public GameObject []CandyArrObj;
     public bool Collect_but = false ;
     private Vector3 randomPos;
-    private List<GameObject> list_candy;
 
     private int score = 0;
     private Pose placementPose = PlacementScript.placementPose;
@@ -29,21 +28,22 @@ public class CollectCandy : MonoBehaviour
             display_score.text = score.ToString();
         }
 
-        if (list_candy.Count < 30)
+        var list_candy = GameObject.FindGameObjectsWithTag("candy");
+
+        if (list_candy.Length < 30)
         {
             Debug.Log("Create Instance");
-            randomPos = new Vector3(Random.Range(placementPose.position.x + 0.5f, placementPose.position.x - 0.5f), placementPose.position.y, Random.Range(placementPose.position.z + 0.5f, placementPose.position.z - 0.5f));
-
-            list_candy.Add(Instantiate(CandyArrObj[Random.Range(0, CandyArrObj.Length - 1)], randomPos, Quaternion.identity)); ;
-            list_candy[list_candy.Count - 1].SetActive(true);
+            StartCoroutine(gen_Candy(list_candy));
         }
     }
 
+    //Random.Range(0, CandyArrObj.Length - 1)
     private void OnTriggerEnter(Collider other)
     {
-        if (Collect_but)
+        if (Collect_but && other.tag == "candy")
         {
-            other.transform.position = new Vector3(randomPos.x, randomPos.y,randomPos.z);
+            //other.transform.position = new Vector3(randomPos.x, randomPos.y,randomPos.z);
+            Destroy(other);
             score++;
         }
     }
@@ -56,5 +56,21 @@ public class CollectCandy : MonoBehaviour
     public void offPressed()
     {
         Collect_but = false;
+    }
+
+    IEnumerator gen_Candy(GameObject []list_candy)
+    {
+
+        yield return new WaitForSeconds(3f);
+
+        if (list_candy.Length < 30)
+        {
+            Debug.Log("Create Instance");
+            randomPos = new Vector3(Random.Range(placementPose.position.x + 0.5f, placementPose.position.x - 0.5f), placementPose.position.y - 10f, Random.Range(placementPose.position.z + 0.5f, placementPose.position.z - 0.5f));
+
+            var Obj = Instantiate(CandyArrObj[Random.Range(0, CandyArrObj.Length - 1)], randomPos, Quaternion.identity);
+            Obj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            list_candy[list_candy.Length - 1].SetActive(true);
+        }
     }
 }
