@@ -11,8 +11,9 @@ public class PlaceGhost : MonoBehaviour
     private ARRaycastManager aRRaycastManager;
     private ARPlaneManager aRPlaneManager;
     private ARSessionOrigin arSessionOrigin;
+    private bool canPlaceGhost;
 
-    private List<GameObject> GhostInstances;
+    [HideInInspector] public List<GameObject> GhostInstances;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class PlaceGhost : MonoBehaviour
         aRRaycastManager = GetComponent<ARRaycastManager>();
         aRPlaneManager = GetComponent<ARPlaneManager>();
         arSessionOrigin = GetComponent<ARSessionOrigin>();
+        canPlaceGhost = true;
     }
 
     // Update is called once per frame
@@ -29,6 +31,29 @@ public class PlaceGhost : MonoBehaviour
         var trackables = aRPlaneManager.trackables;
         tryPlaceGhost(trackables);
         moveGhost();
+    }
+
+    private ARPlane getRandomPlane(TrackableCollection<ARPlane> trackables)
+    {
+        var len = trackables.count;
+
+        var random = Mathf.Round(Random.Range(0, len - 1));
+        var current = 0;
+        ARPlane last = new ARPlane();
+        foreach (var plane in trackables)
+        {
+            if (random == current)
+            {
+                return plane;
+            }
+            else
+            {
+                current++;
+                last = plane;
+            }
+
+        }
+        return last;
     }
 
     private void moveGhost()
@@ -43,38 +68,51 @@ public class PlaceGhost : MonoBehaviour
 
     }
 
+    IEnumerator waitToPlace()
+    {
+        canPlaceGhost = false;
+        yield return new WaitForSeconds(5);
+        canPlaceGhost = true;
+    }
     private void CreateGhost(Vector3 position)
     {
         var ghost = Instantiate(GhostPrefab, position, Quaternion.identity);
         GhostInstances.Add(ghost);
+        StartCoroutine(waitToPlace());
+    }
+
+    public void DestroyGhost(GameObject destroy)
+    {
+        foreach (var ghost in GhostInstances)
+        {
+            if (ghost.GetInstanceID() == destroy.GetInstanceID())
+            {
+                GhostInstances.Remove(ghost);
+                Destroy(ghost);
+                StartCoroutine(waitToPlace());
+            }
+        }
     }
     private void tryPlaceGhost(TrackableCollection<ARPlane> trackables)
     {
+        if (!canPlaceGhost)
+        {
+            return;
+        } 
 
         if (GhostInstances.Count < maxGhosts)
         {
-            foreach (var plane in trackables)
-            {
-                if (GhostInstances.Count >= maxGhosts)
-                {
-                    return;
-                }
+            var plane = getRandomPlane(trackables);
 
-                CreateGhost(plane.center);
-            }
+            CreateGhost(plane.center);
         }
     }
 
     private void moveGhost(GameObject ghost)
     {
         var planes = aRPlaneManager.trackables;
+        var randomPlane = getRandomPlane(planes);
 
-        foreach (var plane in planes)
-        {
-            if (Vector3.Distance(plane.center, Camera.current.transform.position) > 1)
-            {
-                ghost.transform.position = plane.center;
-            }
-        }
+        ghost.transform.position = randomPlane.center;
     }
 }
