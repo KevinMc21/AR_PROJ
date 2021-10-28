@@ -11,6 +11,7 @@ public class ChangePage : MonoBehaviour
     [SerializeField] private string _fifthScene;
     [SerializeField] private string _sixthScene;
     [SerializeField] private string _seventhScene;
+    [SerializeField] private string _gameScene;
 
     public void Gotopage2()
     {
@@ -41,6 +42,11 @@ public class ChangePage : MonoBehaviour
     public void GotopageHowtoplay()
     {
         SceneManager.LoadScene(_seventhScene);
+    }
+
+    public void GoToGame()
+    {
+        SceneManager.LoadScene(_gameScene);
     }
 }
 
