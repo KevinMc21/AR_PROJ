@@ -1,60 +1,111 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.XR.ARFoundation;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CollectCandy : MonoBehaviour
 {
-    public TextMeshProUGUI display_score;
-    public GameObject placement_indicator;
-    public GameObject []CandyArrObj;
-    public bool Collect_but = false ;
-    private Vector3 randomPos;
-    private List<GameObject> list_candy;
+    [SerializeField] private GameObject []Candy;
+    [SerializeField] private int maxCandys = 30;
+    [SerializeField] private TextMeshProUGUI text;
 
-    private int score = 0;
-    private Pose placementPose = PlacementScript.placementPose;
+    static public int score = 0;
+    private ARRaycastManager aRRaycastManager;
+    private ARPlaneManager aRPlaneManager;
+    private ARSessionOrigin arSessionOrigin;
+    private bool on;
 
+    [HideInInspector] public List<GameObject> CandyInstances;
+
+    // Start is called before the first frame update
     void Start()
     {
-        display_score.text = score.ToString();
+        score = 0;
+        CandyInstances = new List<GameObject>();
+        aRRaycastManager = GetComponent<ARRaycastManager>();
+        aRPlaneManager = GetComponent<ARPlaneManager>();
+        arSessionOrigin = GetComponent<ARSessionOrigin>();
+        on = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (score <= 50)
-        {
-            display_score.text = score.ToString();
-        }
+        text.text = score.ToString();
+        var trackables = aRPlaneManager.trackables;
+        tryPlaceCandy(trackables);
 
-        if (list_candy.Count < 30)
+        if (score >= 10)
         {
-            Debug.Log("Create Instance");
-            randomPos = new Vector3(Random.Range(placementPose.position.x + 0.5f, placementPose.position.x - 0.5f), placementPose.position.y, Random.Range(placementPose.position.z + 0.5f, placementPose.position.z - 0.5f));
-
-            list_candy.Add(Instantiate(CandyArrObj[Random.Range(0, CandyArrObj.Length - 1)], randomPos, Quaternion.identity)); ;
-            list_candy[list_candy.Count - 1].SetActive(true);
+            SceneManager.LoadScene("seventh scene");
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private ARPlane getRandomPlane(TrackableCollection<ARPlane> trackables)
     {
-        if (Collect_but)
+        var len = trackables.count;
+
+        var random = Mathf.Round(Random.Range(0, len - 1));
+        var current = 0;
+        ARPlane last = new ARPlane();
+        foreach (var plane in trackables)
         {
-            other.transform.position = new Vector3(randomPos.x, randomPos.y,randomPos.z);
-            score++;
+            if (random == current)
+            {
+                return plane;
+            }
+            else
+            {
+                current++;
+                last = plane;
+            }
+
+        }
+        return last;
+    }
+
+    IEnumerator waitToPlace()
+    {
+        on = false;
+        yield return new WaitForSeconds(5);
+        on = true;
+    }
+    private void gen_Candy(Vector3 position)
+    {
+        var randomPosition = new Vector3(Random.Range(position.x - 1f, position.x + 1f), position.y, Random.Range(position.z - 0.3f, position.x + 0.3f));
+        var candyNew = Instantiate(Candy[Random.Range(0,Candy.Length -1 )], position, Quaternion.identity);
+        CandyInstances.Add(candyNew);
+        StartCoroutine(waitToPlace());
+    }
+
+    public void DestroyCandy(GameObject destroy)
+    {
+        score++;
+        foreach (var C in CandyInstances)
+        {
+            if (C.GetInstanceID() == destroy.GetInstanceID())
+            {
+                CandyInstances.Remove(C);
+                Destroy(C);
+                StartCoroutine(waitToPlace());
+            }
         }
     }
 
-    public void onPressed()
+    private void tryPlaceCandy(TrackableCollection<ARPlane> trackables)
     {
-        Collect_but = true;
-    }
+        if (!on)
+        {
+            return;
+        }
 
-    public void offPressed()
-    {
-        Collect_but = false;
+        if (CandyInstances.Count < maxCandys)
+        {
+            var plane = getRandomPlane(trackables);
+
+            gen_Candy(plane.center);
+        }
     }
 }
